@@ -68,8 +68,8 @@ resource "aws_codepipeline" "cp-01" {
     }
   }
 
-  # https://docs.aws.amazon.com/ja_jp/codepipeline/latest/userguide/action-reference-CodeDeploy.html
-  # 以下のconfigurationについては上記URLを参考にして設定した
+  # https://docs.aws.amazon.com/ja_jp/codepipeline/latest/userguide/reference-pipeline-structure.html#reference-action-artifacts
+  # 上記URLの「プロバイダータイプのアクション設定プロパティ」を参考にした
   stage {
     name = "Deploy"
 

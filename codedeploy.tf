@@ -48,7 +48,7 @@ locals {
 
 }
 
-resource "aws_codedeploy_app" "example" {
+resource "aws_codedeploy_app" "deploy_app" {
   name = "example-app"
 }
 

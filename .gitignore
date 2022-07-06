@@ -2,3 +2,5 @@ terraform.tfvars
 .ssh
 lambda_func_src
 .terraform*
+Vagrantfile
+.vagrant

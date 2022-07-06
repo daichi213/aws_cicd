@@ -18,3 +18,6 @@ variable "repo_description" {}
 
 ## aws app runner service name
 variable "service_name" {}
+
+# CICD 実施結果の通知先
+variable "email_destination" {}

@@ -1,60 +1,22 @@
 locals {
 
-  ## app runner role
-  apprun-01-role = {
-    name = "${var.service_name}-role"
-
-    ## policy-01: AWSAppRunnerServicePolicyForECRAccess
-
+  code_deploy_app = {
+    name = "${var.service_name}_codedeploy_app"
   }
 
-  ## codebuild role
-  cb-01-role = {
-    name = "${var.service_name}-cb-role"
-
-    policy-01 = {
-      name = "${var.service_name}-cb-policy"
-    }
-    ## policy-02: AmazonEC2ContainerRegistryPowerUser
-
-  }
-
-  ## codepipeline role
-  cp-01-role = {
-    name = "${var.service_name}-cp-role"
-
-    policy-01 = {
-      name = "${var.service_name}-cp-policy"
-    }
-  }
-
-  ## cloudwatch events role
-  cwe-01-role = {
-    name = "${var.service_name}-cwe-role"
-
-    policy-01 = {
-      name = "${var.service_name}-cwe-policy"
-    }
-
-  }
-
-  instance_role = {
-    name = "${var.service_name}_instance_role"
-
-    policy-01 = {
-      name = "${var.service_name}_instance_policy"
-    }
+  code_deployment_group = {
+    name = "${var.service_name}_codedeployment_group"
   }
 
 }
 
 resource "aws_codedeploy_app" "deploy_app" {
-  name = "example-app"
+  name = local.code_deploy_app.name
 }
 
 resource "aws_codedeploy_deployment_group" "deployment_group" {
-  app_name              = aws_codedeploy_app.example.name
-  deployment_group_name = "example-group"
+  app_name              = aws_codedeploy_app.deploy_app.name
+  deployment_group_name = local.code_deployment_group.name
   service_role_arn      = aws_iam_role.deploy_role.arn
 
   ec2_tag_filter {
@@ -62,11 +24,11 @@ resource "aws_codedeploy_deployment_group" "deployment_group" {
     type  = "KEY_AND_VALUE"
     value = "filtervalue"
   }
-  
+
   trigger_configuration {
     trigger_events     = ["DeploymentFailure"]
     trigger_name       = "example-trigger"
-    trigger_target_arn = aws_sns_topic.example.arn
+    trigger_target_arn = aws_sns_topic.CICD_execution_results.arn
   }
 
   auto_rollback_configuration {

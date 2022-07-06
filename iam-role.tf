@@ -127,7 +127,7 @@ resource "aws_iam_policy" "deploy_policy" {
   policy = file("./policies/codedeploy_policy.json")
 }
 
-resource "aws_iam_role_policy_attachment" "cp-01-role_policy-01_attach" {
+resource "aws_iam_role_policy_attachment" "deploy_policy_attach" {
   policy_arn = aws_iam_policy.deploy_policy.arn
   role       = aws_iam_role.deploy_role.id
 }
@@ -165,7 +165,7 @@ resource "aws_iam_role_policy_attachment" "cwe-01-role_policy-01_attach" {
 # ====================
 resource "aws_iam_instance_profile" "instance_role" {
     name = local.instance_role.profile["name"]
-    roles = ["${aws_iam_role.instance_role.name}"]
+    role = aws_iam_role.instance_role.name
 }
 
 resource "aws_iam_role" "instance_role" {

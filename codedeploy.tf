@@ -6,6 +6,7 @@ locals {
 
   code_deployment_group = {
     name = "${var.service_name}_codedeployment_group"
+    trigger_name = "${var.service_name}_trigger"
   }
 
 }
@@ -26,18 +27,13 @@ resource "aws_codedeploy_deployment_group" "deployment_group" {
   }
 
   trigger_configuration {
-    trigger_events     = ["DeploymentFailure"]
-    trigger_name       = "example-trigger"
+    trigger_events     = ["DeploymentStart", "DeploymentSuccess", "DeploymentFailure"]
+    trigger_name       = local.code_deployment_group.trigger_name
     trigger_target_arn = aws_sns_topic.CICD_execution_results.arn
   }
 
   auto_rollback_configuration {
     enabled = true
     events  = ["DEPLOYMENT_FAILURE"]
-  }
-
-  alarm_configuration {
-    alarms  = ["my-alarm-name"]
-    enabled = true
   }
 }

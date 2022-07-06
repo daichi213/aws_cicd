@@ -4,7 +4,7 @@ locals {
     name        = "${var.service_name}-cp"
     description = "App Runner for CodePipeline"
 
-    artifact_store_name = "${var.service_name}-artifact"
+    artifact_store_name = "${var.service_name}-artifact-for-cicdpipeline"
 
   }
 

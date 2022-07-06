@@ -44,6 +44,16 @@
             "Resource": [
                 "*"
             ]
+        },
+        {
+            "Sid": "NotificationPolicy",
+            "Effect": "Allow",
+            "Action": [
+                "sns:*"
+            ],
+            "Resource": [
+                "*"
+            ]
         }
     ]
 }

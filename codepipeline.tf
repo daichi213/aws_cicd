@@ -53,14 +53,14 @@ resource "aws_codepipeline" "cp-01" {
     name = "Build"
 
     action {
-      name            = "Build"
-      namespace       = "BuildVariables"
-      category        = "Build"
-      owner           = "AWS"
-      provider        = "CodeBuild"
-      input_artifacts = ["SourceArtifact"]
+      name             = "Build"
+      namespace        = "BuildVariables"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      input_artifacts  = ["SourceArtifact"]
       output_artifacts = ["BuildArtifact"]
-      version = "1"
+      version          = "1"
 
       configuration = {
         ProjectName = aws_codebuild_project.cb-01.name
@@ -80,10 +80,10 @@ resource "aws_codepipeline" "cp-01" {
       owner           = "AWS"
       provider        = "CodeDeploy"
       input_artifacts = ["BuildArtifact"]
-      version = "1"
+      version         = "1"
 
       configuration = {
-        ApplicationName = aws_codedeploy_app.deploy_app.name
+        ApplicationName     = aws_codedeploy_app.deploy_app.name
         DeploymentGroupName = aws_codedeploy_deployment_group.deployment_group.id
       }
     }

@@ -5,7 +5,7 @@ locals {
   }
 
   code_deployment_group = {
-    name = "${var.service_name}_codedeployment_group"
+    name         = "${var.service_name}_codedeployment_group"
     trigger_name = "${var.service_name}_trigger"
   }
 

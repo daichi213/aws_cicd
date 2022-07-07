@@ -164,14 +164,14 @@ resource "aws_iam_role_policy_attachment" "cwe-01-role_policy-01_attach" {
 #
 # ====================
 resource "aws_iam_instance_profile" "instance_role" {
-    name = local.instance_role.profile["name"]
-    role = aws_iam_role.instance_role.name
+  name = local.instance_role.profile["name"]
+  role = aws_iam_role.instance_role.name
 }
 
 resource "aws_iam_role" "instance_role" {
-    name = local.instance_role["name"]
-    description = "The role for a instance with jenkins"
-    assume_role_policy = file("./roles/instance_role.json")
+  name               = local.instance_role["name"]
+  description        = "The role for a instance with jenkins"
+  assume_role_policy = file("./roles/instance_role.json")
 }
 # ====================
 #

@@ -11,11 +11,11 @@ locals {
 }
 
 resource "aws_sns_topic" "CICD_execution_results" {
-  name                        = local.aws_sns_topic.name
+  name = local.aws_sns_topic.name
 }
 
 resource "aws_sns_topic_subscription" "execution_results_target" {
   topic_arn = aws_sns_topic.CICD_execution_results.arn
   protocol  = "email"
-  endpoint  = "${local.email_destination.value}"
+  endpoint  = local.email_destination.value
 }

@@ -17,18 +17,7 @@ resource "aws_iam_group_policy" "my_developer_policy" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "ec2:Describe*",
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
+  policy = file("./policies/developers_group_policy.json")
 }
 
 # ====================
@@ -36,7 +25,7 @@ resource "aws_iam_group_policy" "my_developer_policy" {
 # IAM User
 #
 # ====================
-resource "aws_iam_user" "lb" {
+resource "aws_iam_user" "developer" {
   name = "loadbalancer"
   path = "/system/"
 
@@ -45,6 +34,6 @@ resource "aws_iam_user" "lb" {
   }
 }
 
-resource "aws_iam_access_key" "lb" {
-  user = aws_iam_user.lb.name
+resource "aws_iam_access_key" "developer_access_key" {
+  user = aws_iam_user.developer.name
 }
